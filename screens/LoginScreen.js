@@ -38,12 +38,18 @@ export default class LoginScreen extends React.Component {
     } else Alert.alert('Auth error');
   };
 
-  _onSubmit(values) {
-    return fetch('https://facebook.github.io/react-native/movies.json')
-    .then((response) => this._signIn(values, response))
-    .catch((error) => {
+  // error link: http://www.mocky.io/v2/5c7ef8743300005500847f4b
+  // success link: http://www.mocky.io/v2/5c7ef89f3300005500847f4e
+  _onSubmit = async (values) => {
+    try {
+      let response = await fetch('http://www.mocky.io/v2/5c7ef89f3300005500847f4e');
+      let responseJson = await response.json();
+
+      if (responseJson.result != 'success') throw "Server error"
+      this._signIn(values, responseJson)
+    } catch (error) {
       Alert.alert('Error!', error.toString());
-    });
+    }
   };
 
   _resetStorage = async (values) => {
