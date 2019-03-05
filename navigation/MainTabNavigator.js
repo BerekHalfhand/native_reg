@@ -3,16 +3,16 @@ import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import RegScreen from '../screens/RegScreen';
-import LinksScreen from '../screens/LinksScreen';
+import SignUpScreen from '../screens/SignUpScreen';
+import LoginScreen from '../screens/LoginScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
-const RegStack = createStackNavigator({
-  Registration: RegScreen,
+export const SignUpStack = createStackNavigator({
+  SignUp: SignUpScreen,
 });
 
-RegStack.navigationOptions = {
-  tabBarLabel: 'Registration',
+SignUpStack.navigationOptions = {
+  tabBarLabel: 'Sign Up',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -25,12 +25,12 @@ RegStack.navigationOptions = {
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+export const LoginStack = createStackNavigator({
+  Login: LoginScreen,
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+LoginStack.navigationOptions = {
+  tabBarLabel: 'Login',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -39,7 +39,7 @@ LinksStack.navigationOptions = {
   ),
 };
 
-const SettingsStack = createStackNavigator({
+export const SettingsStack = createStackNavigator({
   Settings: SettingsScreen,
 });
 
@@ -53,8 +53,8 @@ SettingsStack.navigationOptions = {
   ),
 };
 
-export default createBottomTabNavigator({
-  RegStack,
-  LinksStack,
-  SettingsStack,
-});
+// export default createBottomTabNavigator({
+//   SignUpStack,
+//   LoginStack,
+//   SettingsStack,
+// });
