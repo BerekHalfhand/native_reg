@@ -10,6 +10,7 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import { Formik } from 'formik';
+import { StyledButton } from '../components/StyledButton';
 
 export default class LoginScreen extends React.Component {
   static navigationOptions = {
@@ -61,14 +62,14 @@ export default class LoginScreen extends React.Component {
         >
         {props => (
           <View>
-            <TextInput
+            <TextInput style={styles.input}
             placeholder="Username"
             textContentType="username"
             onChangeText={props.handleChange('username')}
             onBlur={props.handleBlur('username')}
             value={props.values.username}
             />
-            <TextInput
+            <TextInput style={styles.input}
             placeholder="Password"
             textContentType="password"
             secureTextEntry={true}
@@ -76,7 +77,7 @@ export default class LoginScreen extends React.Component {
             onBlur={props.handleBlur('password')}
             value={props.values.password}
             />
-            <Button onPress={props.handleSubmit} title="Login" />
+            <StyledButton title="Login" handler={props.handleSubmit} />
           </View>
         )}
         </Formik>
@@ -90,7 +91,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'stretch',
-    backgroundColor: '#fff',
-    padding: 15,
+  },
+  input: {
+    marginBottom: 10,
+    marginLeft: 15,
+    marginRight: 15,
   },
 });

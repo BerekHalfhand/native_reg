@@ -11,6 +11,8 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import { ExpoConfigView } from '@expo/samples';
+import { StyledButton } from '../components/StyledButton';
+import { MonoText } from '../components/StyledText';
 
 export default class SettingsScreen extends React.Component {
   static navigationOptions = {
@@ -45,13 +47,13 @@ export default class SettingsScreen extends React.Component {
     return (
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
         <View>
-          <Text>Username: {this.state.userData.username}</Text>
-          <Text>Name: {this.state.userData.name}</Text>
-          <Text>Password: {this.state.userData.password}</Text>
-          <Text>Email: {this.state.userData.email}</Text>
+          <MonoText>Username: {this.state.userData.username}</MonoText>
+          <MonoText>Name: {this.state.userData.name}</MonoText>
+          <MonoText>Password: {this.state.userData.password}</MonoText>
+          <MonoText>Email: {this.state.userData.email}</MonoText>
 
-          <Button onPress={this._logOut} title="Log Out" />
-          <Button onPress={this._resetStorage} title="Reset All" />
+          <StyledButton title="Log Out" handler={this._logOut} />
+          <StyledButton title="Reset All" handler={this._resetStorage} />
         </View>
         <ExpoConfigView />
       </ScrollView>
@@ -66,5 +68,8 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     paddingTop: 30,
+    justifyContent: 'center',
+    alignItems: 'stretch',
+    padding: 15,
   },
 });

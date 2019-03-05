@@ -10,6 +10,7 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import { Formik } from 'formik';
+import { StyledButton } from '../components/StyledButton';
 
 export default class SignUpScreen extends React.Component {
   static navigationOptions = {
@@ -21,7 +22,7 @@ export default class SignUpScreen extends React.Component {
       await AsyncStorage.setItem('values', JSON.stringify(values))
       this.props.navigation.navigate('Login')
     } catch (error) {
-      Alert.alert('Error!', error.toString());
+      Alert.alert('Error!', error.toString())
     }
   };
 
@@ -29,13 +30,13 @@ export default class SignUpScreen extends React.Component {
   // success link: http://www.mocky.io/v2/5c7ef89f3300005500847f4e
   _onSubmit = async (values) => {
     try {
-      let response = await fetch('http://www.mocky.io/v2/5c7ef89f3300005500847f4e');
-      let responseJson = await response.json();
+      let response = await fetch('http://www.mocky.io/v2/5c7ef89f3300005500847f4e')
+      let responseJson = await response.json()
 
       if (responseJson.result != 'success') throw "Server error"
       this._signUp(values, responseJson)
     } catch (error) {
-      Alert.alert('Error!', error.toString());
+      Alert.alert('Error!', error.toString())
     }
   }
 
@@ -48,21 +49,21 @@ export default class SignUpScreen extends React.Component {
         >
         {props => (
           <View>
-            <TextInput
+            <TextInput style={styles.input}
             placeholder="Username"
             textContentType="username"
             onChangeText={props.handleChange('username')}
             onBlur={props.handleBlur('username')}
             value={props.values.username}
             />
-            <TextInput
+            <TextInput style={styles.input}
             placeholder="Full Name"
             textContentType="name"
             onChangeText={props.handleChange('name')}
             onBlur={props.handleBlur('name')}
             value={props.values.name}
             />
-            <TextInput
+            <TextInput style={styles.input}
             placeholder="Password"
             textContentType="password"
             secureTextEntry={true}
@@ -70,7 +71,7 @@ export default class SignUpScreen extends React.Component {
             onBlur={props.handleBlur('password')}
             value={props.values.password}
             />
-            <TextInput
+            <TextInput style={styles.input}
             placeholder="Email"
             textContentType="emailAddress"
             keyboardType="email-address"
@@ -78,7 +79,7 @@ export default class SignUpScreen extends React.Component {
             onBlur={props.handleBlur('email')}
             value={props.values.email}
             />
-            <Button onPress={props.handleSubmit} title="Sign Up" />
+            <StyledButton title="Sign Up" handler={props.handleSubmit} />
           </View>
         )}
         </Formik>
@@ -96,10 +97,8 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   input: {
-    margin: 20,
-    height: 20,
-  },
-  button: {
-    margin: 20,
+    marginBottom: 10,
+    marginLeft: 15,
+    marginRight: 15,
   },
 });
