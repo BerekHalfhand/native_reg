@@ -8,8 +8,8 @@ import LoginScreen from '../screens/LoginScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 
-const AppStack = createStackNavigator({ Home: LoginScreen, Settings: SettingsScreen });
-const AuthStack = createStackNavigator({ SignIn: SignUpScreen });
+const AppStack = createStackNavigator({ Settings: SettingsScreen });
+const AuthStack = createStackNavigator({ SignUp: SignUpScreen, Login: LoginScreen });
 
 export default createAppContainer(createSwitchNavigator(
   {

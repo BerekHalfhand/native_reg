@@ -19,12 +19,12 @@ export default class SignUpScreen extends React.Component {
   _signUp = async (values, response) => {
     try {
       await AsyncStorage.setItem('values', JSON.stringify(values))
-      this.props.navigation.navigate('App')
+      this.props.navigation.navigate('Login')
     } catch (error) {
       Alert.alert('Error!', error.toString());
     }
   };
-  
+
   // error link: http://www.mocky.io/v2/5c7ef8743300005500847f4b
   // success link: http://www.mocky.io/v2/5c7ef89f3300005500847f4e
   _onSubmit = async (values) => {

@@ -17,7 +17,7 @@ export default class LoginScreen extends React.Component {
   };
 
   state = {
-     userData: {},
+    userData: {},
   }
 
   componentDidMount() {
@@ -34,7 +34,7 @@ export default class LoginScreen extends React.Component {
     if (values.password === this.state.userData.password
      && values.username === this.state.userData.username) {
       await AsyncStorage.setItem('userToken', 'true')
-      this.props.navigation.navigate('Settings')
+      this.props.navigation.navigate('App')
     } else Alert.alert('Auth error');
   };
 
@@ -52,17 +52,9 @@ export default class LoginScreen extends React.Component {
     }
   };
 
-  _resetStorage = async (values) => {
-    await AsyncStorage.clear();
-  }
-
   render() {
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-        <Text>Username: {this.state.userData.username}</Text>
-        <Text>Name: {this.state.userData.name}</Text>
-        <Text>Password: {this.state.userData.password}</Text>
-        <Text>Email: {this.state.userData.email}</Text>
         <Formik
         initialValues={{ email: '' }}
         onSubmit={values => this._onSubmit(values)}
@@ -85,7 +77,6 @@ export default class LoginScreen extends React.Component {
             value={props.values.password}
             />
             <Button onPress={props.handleSubmit} title="Login" />
-            <Button onPress={this._resetStorage} title="Reset" />
           </View>
         )}
         </Formik>
