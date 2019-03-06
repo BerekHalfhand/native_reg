@@ -7,7 +7,7 @@ export const StyledButton = (props) => (
     onPress={() => props.handler()}
     style={styles.button}
     background={Touchable.Ripple('white')}>
-    <Text>{props.title.toUpperCase()}</Text>
+    <Text style={styles.title}>{props.title.toUpperCase()}</Text>
   </Touchable>
 )
 
@@ -20,7 +20,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 3,
-    fontWeight: 'bold',
-
   },
+  title: {
+    fontWeight: 'bold',
+    fontFamily: 'lato'
+  }
 });

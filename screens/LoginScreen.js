@@ -2,8 +2,10 @@ import React from 'react';
 import {
   Alert,
   AsyncStorage,
+  ActivityIndicator,
   Button,
   StyleSheet,
+  ScrollView,
   Text,
   TextInput,
   View,
@@ -55,32 +57,44 @@ export default class LoginScreen extends React.Component {
 
   render() {
     return (
-      <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-        <Formik
-        initialValues={{ email: '' }}
-        onSubmit={values => this._onSubmit(values)}
-        >
-        {props => (
-          <View>
-            <TextInput style={styles.input}
-            placeholder="Username"
-            textContentType="username"
-            onChangeText={props.handleChange('username')}
-            onBlur={props.handleBlur('username')}
-            value={props.values.username}
-            />
-            <TextInput style={styles.input}
-            placeholder="Password"
-            textContentType="password"
-            secureTextEntry={true}
-            onChangeText={props.handleChange('password')}
-            onBlur={props.handleBlur('password')}
-            value={props.values.password}
-            />
-            <StyledButton title="Login" handler={props.handleSubmit} />
-          </View>
-        )}
-        </Formik>
+      <KeyboardAvoidingView
+        keyboardVerticalOffset = {100} // adjust the value here if you need more padding
+        style = {{ flex: 1 }}
+        behavior = "padding" >
+
+        <ScrollView contentContainerStyle={styles.container}>
+          <Formik
+          onSubmit={(values, actions) => {
+            this._onSubmit(values)
+            .then(() => actions.setSubmitting(false))
+          }}
+          >
+          {props => (
+            <View>
+              <TextInput style={styles.input}
+              placeholder="Username"
+              textContentType="username"
+              onChangeText={props.handleChange('username')}
+              onBlur={props.handleBlur('username')}
+              value={props.values.username}
+              />
+              <TextInput style={styles.input}
+              placeholder="Password"
+              textContentType="password"
+              secureTextEntry={true}
+              onChangeText={props.handleChange('password')}
+              onBlur={props.handleBlur('password')}
+              value={props.values.password}
+              />
+              {props.isSubmitting ? (
+                <ActivityIndicator />
+              ) : (
+                <StyledButton title="Login" handler={props.handleSubmit} />
+              )}
+            </View>
+          )}
+          </Formik>
+        </ScrollView>
       </KeyboardAvoidingView>
     );
   }

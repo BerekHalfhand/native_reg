@@ -38,7 +38,7 @@ export default class SignUpScreen extends React.Component {
   static navigationOptions = {
     title: 'Sign Up',
   };
-  
+
   _signUp = async (values, response) => {
     try {
       await AsyncStorage.setItem('values', JSON.stringify(values))
@@ -69,9 +69,8 @@ export default class SignUpScreen extends React.Component {
         style = {{ flex: 1 }}
         behavior = "padding" >
 
-        <ScrollView contentContainerStyle={styles.contentContainer}>
+        <ScrollView contentContainerStyle={styles.container}>
         <Formik
-        initialValues={{ email: '' }}
         onSubmit={(values, actions) => {
           this._onSubmit(values)
           .then(() => actions.setSubmitting(false))
@@ -150,13 +149,5 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     marginLeft: 15,
     marginRight: 15,
-  },
-
-  contentContainer: {
-    flex: 1,
-    paddingTop: 30,
-    justifyContent: 'center',
-    alignItems: 'stretch',
-    padding: 15,
   },
 });
