@@ -12,6 +12,8 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import { Formik } from 'formik';
+import PasswordInputText from 'react-native-hide-show-password-input';
+import { TextField } from 'react-native-materialui-textfield';
 import { StyledButton } from '../components/StyledButton';
 
 export default class LoginScreen extends React.Component {
@@ -62,7 +64,8 @@ export default class LoginScreen extends React.Component {
         style = {{ flex: 1 }}
         behavior = "padding" >
 
-        <ScrollView contentContainerStyle={styles.container}>
+        <ScrollView contentContainerStyle={styles.container}
+          keyboardShouldPersistTaps='always' >
           <Formik
           onSubmit={(values, actions) => {
             this._onSubmit(values)
@@ -71,20 +74,18 @@ export default class LoginScreen extends React.Component {
           >
           {props => (
             <View>
-              <TextInput style={styles.input}
-              placeholder="Username"
+            <TextField style={styles.input}
+              label="Username"
               textContentType="username"
               onChangeText={props.handleChange('username')}
               onBlur={props.handleBlur('username')}
               value={props.values.username}
               />
-              <TextInput style={styles.input}
-              placeholder="Password"
-              textContentType="password"
-              secureTextEntry={true}
-              onChangeText={props.handleChange('password')}
-              onBlur={props.handleBlur('password')}
-              value={props.values.password}
+
+              <PasswordInputText style={styles.input}
+                  value={props.values.password}
+                  onChangeText={props.handleChange('password')}
+                  onBlur={props.handleBlur('password')}
               />
               {props.isSubmitting ? (
                 <ActivityIndicator />
@@ -105,9 +106,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'stretch',
+    padding: 15,
   },
   input: {
-    marginBottom: 10,
+    marginTop: 5,
+    marginBottom: 5,
     marginLeft: 15,
     marginRight: 15,
   },

@@ -46,7 +46,7 @@ export default class SettingsScreen extends React.Component {
   }
 
   _logOut = async (values) => {
-    await AsyncStorage.setItem('userToken', 'false')
+    await AsyncStorage.removeItem('userToken')
 
     this.props.navigation.navigate('Login')
   }

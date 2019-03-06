@@ -13,6 +13,8 @@ import {
 } from 'react-native';
 import { Formik } from 'formik';
 import { StyledButton } from '../components/StyledButton';
+import PasswordInputText from 'react-native-hide-show-password-input';
+import { TextField } from 'react-native-materialui-textfield';
 import * as yup from 'yup';
 
 const validationSchema = yup.object().shape({
@@ -69,7 +71,8 @@ export default class SignUpScreen extends React.Component {
         style = {{ flex: 1 }}
         behavior = "padding" >
 
-        <ScrollView contentContainerStyle={styles.container}>
+        <ScrollView contentContainerStyle={styles.container}
+          keyboardShouldPersistTaps='always' >
         <Formik
         onSubmit={(values, actions) => {
           this._onSubmit(values)
@@ -79,8 +82,8 @@ export default class SignUpScreen extends React.Component {
         >
         {props => (
           <View>
-            <TextInput style={styles.input}
-            placeholder="Username"
+            <TextField style={styles.input}
+            label="Username"
             textContentType="username"
             onChangeText={props.handleChange('username')}
             onBlur={props.handleBlur('username')}
@@ -90,28 +93,23 @@ export default class SignUpScreen extends React.Component {
               {props.touched.username && props.errors.username}
             </Text>
 
-            <TextInput style={styles.input}
-            placeholder="Full Name"
-            textContentType="name"
-            onChangeText={props.handleChange('name')}
-            onBlur={props.handleBlur('name')}
-            value={props.values.name}
+            <TextField style={styles.input}
+              label='Full Name'
+              value={props.values.name}
+              onChangeText={props.handleChange('name')}
+              onBlur={props.handleBlur('name')}
             />
-
-            <TextInput style={styles.input}
-            placeholder="Password"
-            textContentType="password"
-            secureTextEntry
-            onChangeText={props.handleChange('password')}
-            onBlur={props.handleBlur('password')}
-            value={props.values.password}
+            <PasswordInputText style={styles.input}
+                value={props.values.password}
+                onChangeText={props.handleChange('password')}
+                onBlur={props.handleBlur('password')}
             />
             <Text style={{ color: 'red' }}>
               {props.touched.password && props.errors.password}
             </Text>
 
-            <TextInput style={styles.input}
-            placeholder="Email"
+            <TextField style={styles.input}
+            label="Email"
             textContentType="emailAddress"
             keyboardType="email-address"
             onChangeText={props.handleChange('email')}
@@ -138,9 +136,6 @@ export default class SignUpScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'stretch',
     backgroundColor: '#fff',
     padding: 15,
   },

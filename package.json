@@ -16,6 +16,8 @@
     "formik": "^1.5.1",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "react-native-hide-show-password-input": "^1.0.7",
+    "react-native-materialui-textfield": "^0.13.2",
     "react-native-platform-touchable": "^1.1.1",
     "react-navigation": "^3.0.9",
     "yup": "^0.26.10"
