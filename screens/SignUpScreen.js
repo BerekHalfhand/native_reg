@@ -2,8 +2,10 @@ import React from 'react';
 import {
   Alert,
   AsyncStorage,
+  ActivityIndicator,
   Button,
   StyleSheet,
+  ScrollView,
   Text,
   TextInput,
   View,
@@ -11,12 +13,32 @@ import {
 } from 'react-native';
 import { Formik } from 'formik';
 import { StyledButton } from '../components/StyledButton';
+import * as yup from 'yup';
+
+const validationSchema = yup.object().shape({
+  username: yup
+    .string()
+    .label('Username')
+    .required()
+    .min(3, 'Username is too short'),
+  email: yup
+    .string()
+    .label('Email')
+    .email()
+    .required(),
+  password: yup
+    .string()
+    .label('Password')
+    .required()
+    .min(5, 'Password is too short')
+});
+
 
 export default class SignUpScreen extends React.Component {
   static navigationOptions = {
     title: 'Sign Up',
   };
-
+  
   _signUp = async (values, response) => {
     try {
       await AsyncStorage.setItem('values', JSON.stringify(values))
@@ -42,10 +64,19 @@ export default class SignUpScreen extends React.Component {
 
   render() {
     return (
-      <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+      <KeyboardAvoidingView
+        keyboardVerticalOffset = {100} // adjust the value here if you need more padding
+        style = {{ flex: 1 }}
+        behavior = "padding" >
+
+        <ScrollView contentContainerStyle={styles.contentContainer}>
         <Formik
         initialValues={{ email: '' }}
-        onSubmit={values => this._onSubmit(values)}
+        onSubmit={(values, actions) => {
+          this._onSubmit(values)
+          .then(() => actions.setSubmitting(false))
+        }}
+        validationSchema={validationSchema}
         >
         {props => (
           <View>
@@ -56,6 +87,10 @@ export default class SignUpScreen extends React.Component {
             onBlur={props.handleBlur('username')}
             value={props.values.username}
             />
+            <Text style={{ color: 'red' }}>
+              {props.touched.username && props.errors.username}
+            </Text>
+
             <TextInput style={styles.input}
             placeholder="Full Name"
             textContentType="name"
@@ -63,14 +98,19 @@ export default class SignUpScreen extends React.Component {
             onBlur={props.handleBlur('name')}
             value={props.values.name}
             />
+
             <TextInput style={styles.input}
             placeholder="Password"
             textContentType="password"
-            secureTextEntry={true}
+            secureTextEntry
             onChangeText={props.handleChange('password')}
             onBlur={props.handleBlur('password')}
             value={props.values.password}
             />
+            <Text style={{ color: 'red' }}>
+              {props.touched.password && props.errors.password}
+            </Text>
+
             <TextInput style={styles.input}
             placeholder="Email"
             textContentType="emailAddress"
@@ -79,10 +119,19 @@ export default class SignUpScreen extends React.Component {
             onBlur={props.handleBlur('email')}
             value={props.values.email}
             />
-            <StyledButton title="Sign Up" handler={props.handleSubmit} />
+            <Text style={{ color: 'red' }}>
+              {props.touched.email && props.errors.email}
+            </Text>
+
+            {props.isSubmitting ? (
+              <ActivityIndicator />
+            ) : (
+              <StyledButton title="Sign Up" handler={props.handleSubmit} />
+            )}
           </View>
         )}
         </Formik>
+        </ScrollView>
       </KeyboardAvoidingView>
     );
   }
@@ -97,8 +146,17 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   input: {
-    marginBottom: 10,
+    marginTop: 5,
+    marginBottom: 5,
     marginLeft: 15,
     marginRight: 15,
+  },
+
+  contentContainer: {
+    flex: 1,
+    paddingTop: 30,
+    justifyContent: 'center',
+    alignItems: 'stretch',
+    padding: 15,
   },
 });
