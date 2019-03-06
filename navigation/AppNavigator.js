@@ -1,15 +1,11 @@
-import React from 'react';
-import { createAppContainer, createStackNavigator, createSwitchNavigator } from 'react-navigation';
+import { createAppContainer, createStackNavigator, createSwitchNavigator } from 'react-navigation'
+import SignUpScreen from '../screens/SignUpScreen'
+import LoginScreen from '../screens/LoginScreen'
+import SettingsScreen from '../screens/SettingsScreen'
+import AuthLoadingScreen from '../screens/AuthLoadingScreen'
 
-// import MainTabNavigator from './MainTabNavigator';
-
-import SignUpScreen from '../screens/SignUpScreen';
-import LoginScreen from '../screens/LoginScreen';
-import SettingsScreen from '../screens/SettingsScreen';
-import AuthLoadingScreen from '../screens/AuthLoadingScreen';
-
-const AppStack = createStackNavigator({ Settings: SettingsScreen });
-const AuthStack = createStackNavigator({ SignUp: SignUpScreen, Login: LoginScreen });
+const AppStack = createStackNavigator({ Settings: SettingsScreen })
+const AuthStack = createStackNavigator({ SignUp: SignUpScreen, Login: LoginScreen })
 
 export default createAppContainer(createSwitchNavigator(
   {
@@ -20,4 +16,4 @@ export default createAppContainer(createSwitchNavigator(
   {
     initialRouteName: 'AuthLoading',
   }
-));
+))

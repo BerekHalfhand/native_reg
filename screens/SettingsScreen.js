@@ -1,25 +1,20 @@
-import React from 'react';
+import React from 'react'
 import {
-  Alert,
   AsyncStorage,
-  Button,
   StyleSheet,
   ScrollView,
-  Text,
-  TextInput,
   View,
-  KeyboardAvoidingView,
-} from 'react-native';
-import { ExpoConfigView } from '@expo/samples';
-import { StyledButton } from '../components/StyledButton';
-import { MonoText } from '../components/StyledText';
+} from 'react-native'
+import { ExpoConfigView } from '@expo/samples'
+import { StyledButton } from '../components/StyledButton'
+import { MonoText } from '../components/StyledText'
 
 export default class SettingsScreen extends React.Component {
   static navigationOptions = {
     title: 'User settings',
   };
   constructor(props){
-     super(props);
+     super(props)
 
     this.state = {
       userData: {},
@@ -32,6 +27,7 @@ export default class SettingsScreen extends React.Component {
     this._retrieveData()
   }
 
+  // gets the stored user data
   _retrieveData = async () => {
     let userData = await AsyncStorage.getItem('values')
     userData = JSON.parse(userData)
@@ -41,16 +37,19 @@ export default class SettingsScreen extends React.Component {
     })
   };
 
-  _resetStorage = async (values) => {
-    await AsyncStorage.clear();
+  // resets all storage, both userToken and user data
+  _resetStorage = async () => {
+    await AsyncStorage.clear()
   }
 
-  _logOut = async (values) => {
+  // removes userToken and redirects to the login page
+  _logOut = async () => {
     await AsyncStorage.removeItem('userToken')
 
     this.props.navigation.navigate('Login')
   }
 
+  // outputs user data when it's ready
   _renderUserData() {
     if (!this.state.isLoading && this.state.userData)
       return (
@@ -62,7 +61,7 @@ export default class SettingsScreen extends React.Component {
         </View>
       )
 
-    return false;
+    return false
   }
 
   render() {
@@ -76,7 +75,7 @@ export default class SettingsScreen extends React.Component {
         </View>
         <ExpoConfigView />
       </ScrollView>
-    );
+    )
   }
 }
 
@@ -91,4 +90,4 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     padding: 15,
   },
-});
+})

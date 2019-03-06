@@ -1,6 +1,6 @@
-import React from 'react';
-import { Text, StyleSheet } from 'react-native';
-import Touchable from 'react-native-platform-touchable';
+import React from 'react'
+import { Text, StyleSheet } from 'react-native'
+import Touchable from 'react-native-platform-touchable'
 
 export const StyledButton = (props) => (
   <Touchable
@@ -25,4 +25,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: 'lato'
   }
-});
+})

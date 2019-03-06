@@ -1,20 +1,17 @@
-import React from 'react';
+import React from 'react'
 import {
   Alert,
   AsyncStorage,
   ActivityIndicator,
-  Button,
   StyleSheet,
   ScrollView,
-  Text,
-  TextInput,
   View,
   KeyboardAvoidingView,
-} from 'react-native';
-import { Formik } from 'formik';
-import PasswordInputText from 'react-native-hide-show-password-input';
-import { TextField } from 'react-native-materialui-textfield';
-import { StyledButton } from '../components/StyledButton';
+} from 'react-native'
+import { Formik } from 'formik'
+import PasswordInputText from 'react-native-hide-show-password-input'
+import { TextField } from 'react-native-materialui-textfield'
+import { StyledButton } from '../components/StyledButton'
 
 export default class LoginScreen extends React.Component {
   static navigationOptions = {
@@ -29,31 +26,33 @@ export default class LoginScreen extends React.Component {
     this._retrieveData()
   }
 
+  // gets the stored user data
   _retrieveData = async () => {
     let userData = await AsyncStorage.getItem('values')
     userData = JSON.parse(userData)
     await this.setState({ userData: userData })
   };
 
-  _signIn = async (values, response) => {
+  // saves the "session" and redirects to main app area
+  _signIn = async (values) => {
     if (values.password === this.state.userData.password
      && values.username === this.state.userData.username) {
       await AsyncStorage.setItem('userToken', 'true')
       this.props.navigation.navigate('App')
-    } else Alert.alert('Auth error');
+    } else Alert.alert('Auth error', 'The username-password pair is incorrect')
   };
 
   // error link: http://www.mocky.io/v2/5c7ef8743300005500847f4b
   // success link: http://www.mocky.io/v2/5c7ef89f3300005500847f4e
   _onSubmit = async (values) => {
     try {
-      let response = await fetch('http://www.mocky.io/v2/5c7ef89f3300005500847f4e');
-      let responseJson = await response.json();
+      let response = await fetch('http://www.mocky.io/v2/5c7ef89f3300005500847f4e')
+      let responseJson = await response.json()
 
-      if (responseJson.result != 'success') throw "Server error"
-      this._signIn(values, responseJson)
+      if (responseJson.result != 'success') throw 'Server error'
+      this._signIn(values)
     } catch (error) {
-      Alert.alert('Error!', error.toString());
+      Alert.alert('Error!', error.toString())
     }
   };
 
@@ -97,7 +96,7 @@ export default class LoginScreen extends React.Component {
           </Formik>
         </ScrollView>
       </KeyboardAvoidingView>
-    );
+    )
   }
 }
 
@@ -114,4 +113,4 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginRight: 15,
   },
-});
+})

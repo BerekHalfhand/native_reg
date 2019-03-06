@@ -1,21 +1,19 @@
-import React from 'react';
+import React from 'react'
 import {
   Alert,
   AsyncStorage,
   ActivityIndicator,
-  Button,
   StyleSheet,
   ScrollView,
   Text,
-  TextInput,
   View,
   KeyboardAvoidingView,
-} from 'react-native';
-import { Formik } from 'formik';
-import { StyledButton } from '../components/StyledButton';
-import PasswordInputText from 'react-native-hide-show-password-input';
-import { TextField } from 'react-native-materialui-textfield';
-import * as yup from 'yup';
+} from 'react-native'
+import { Formik } from 'formik'
+import { StyledButton } from '../components/StyledButton'
+import PasswordInputText from 'react-native-hide-show-password-input'
+import { TextField } from 'react-native-materialui-textfield'
+import * as yup from 'yup'
 
 const validationSchema = yup.object().shape({
   username: yup
@@ -33,7 +31,7 @@ const validationSchema = yup.object().shape({
     .label('Password')
     .required()
     .min(5, 'Password is too short')
-});
+})
 
 
 export default class SignUpScreen extends React.Component {
@@ -41,7 +39,8 @@ export default class SignUpScreen extends React.Component {
     title: 'Sign Up',
   };
 
-  _signUp = async (values, response) => {
+  // stores user data and redirects to the login page
+  _signUp = async (values) => {
     try {
       await AsyncStorage.setItem('values', JSON.stringify(values))
       this.props.navigation.navigate('Login')
@@ -57,8 +56,8 @@ export default class SignUpScreen extends React.Component {
       let response = await fetch('http://www.mocky.io/v2/5c7ef89f3300005500847f4e')
       let responseJson = await response.json()
 
-      if (responseJson.result != 'success') throw "Server error"
-      this._signUp(values, responseJson)
+      if (responseJson.result != 'success') throw 'Server error'
+      this._signUp(values)
     } catch (error) {
       Alert.alert('Error!', error.toString())
     }
@@ -130,7 +129,7 @@ export default class SignUpScreen extends React.Component {
         </Formik>
         </ScrollView>
       </KeyboardAvoidingView>
-    );
+    )
   }
 }
 
@@ -145,4 +144,4 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginRight: 15,
   },
-});
+})
