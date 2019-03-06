@@ -66,7 +66,7 @@ export default class SignUpScreen extends React.Component {
   render() {
     return (
       <KeyboardAvoidingView
-        keyboardVerticalOffset = {100} // adjust the value here if you need more padding
+        keyboardVerticalOffset = {64} // adjust the value here if you need more padding
         style = {{ flex: 1 }}
         behavior = "padding" >
 
