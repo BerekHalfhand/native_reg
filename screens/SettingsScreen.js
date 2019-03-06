@@ -18,10 +18,15 @@ export default class SettingsScreen extends React.Component {
   static navigationOptions = {
     title: 'User settings',
   };
+  constructor(props){
+     super(props);
 
-  state = {
-    userData: {},
+    this.state = {
+      userData: {},
+      isLoading: true,
+    }
   }
+
 
   componentDidMount() {
     this._retrieveData()
@@ -30,7 +35,10 @@ export default class SettingsScreen extends React.Component {
   _retrieveData = async () => {
     let userData = await AsyncStorage.getItem('values')
     userData = JSON.parse(userData)
-    await this.setState({ userData: userData })
+    await this.setState({
+      userData: userData,
+      isLoading: false,
+    })
   };
 
   _resetStorage = async (values) => {
@@ -43,14 +51,25 @@ export default class SettingsScreen extends React.Component {
     this.props.navigation.navigate('Login')
   }
 
-  render() {
-    return (
-      <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+  _renderUserData() {
+    if (!this.state.isLoading && this.state.userData)
+      return (
         <View>
           <MonoText>Username: {this.state.userData.username}</MonoText>
           <MonoText>Name: {this.state.userData.name}</MonoText>
           <MonoText>Password: {this.state.userData.password}</MonoText>
           <MonoText>Email: {this.state.userData.email}</MonoText>
+        </View>
+      )
+
+    return false;
+  }
+
+  render() {
+    return (
+      <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+        <View>
+          { this._renderUserData() }
 
           <StyledButton title="Log Out" handler={this._logOut} />
           <StyledButton title="Reset All" handler={this._resetStorage} />
